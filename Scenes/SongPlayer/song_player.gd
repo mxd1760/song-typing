@@ -34,12 +34,23 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	update_text_interface()
+	update_text_interface_single_line()
 
 func sync_text_elements() -> void:
 	pass #TODO format of all text elements needs to be identical or else display will not function properly.
 
-func update_text_interface() -> void:
+func _input(event):
+	if event is InputEventKey and event.is_pressed:
+		var key = event.unicode
+		if not key:
+			return
+		# TODO remove this debug print
+		print("DEBUG: KeyPressed: ",String.chr(key)) 
+		if player_cursor<text.length() and key == text.unicode_at(player_cursor):
+			player_cursor += 1
+		
+
+func update_text_interface_single_line() -> void:
 	#guard cases
 	if player_cursor>text.length() or computer_cursor>text.length():
 		return
@@ -73,13 +84,8 @@ func update_text_interface() -> void:
 	else:
 		$TextInterface/TextDisplay.text = line_text
 		$TextInterface/PlayerText.text = line_text.substr(0,local_player_cursor)
-	
-	
 
-
-var enemy_update = false
+# TODO remove debug timer
 func _on_debug_timer_timeout() -> void:
-	player_cursor += 1
-	if enemy_update:
-		computer_cursor += 1
-	enemy_update = not enemy_update
+	computer_cursor += 1
+	
