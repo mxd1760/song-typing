@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/MainMenu/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalGameSettings="*res://Singletons/global_settings.gd"
+
 [rendering]
 
 renderer/rendering_method="mobile"

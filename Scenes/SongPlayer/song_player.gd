@@ -1,21 +1,5 @@
 extends Control
 
-enum LineMode{
-	SingleLine,
-	N_Line,
-	H_Scrolling,
-	V_Scrolling_N_Line,
-	V_Scrolling_unlimited,
-}
-enum CPUPlayerMode{
-	WPM,
-	SongSync,
-	Disabled,
-}
-
-@export var line_mode:LineMode = LineMode.SingleLine
-@export var cpu_player_mode:CPUPlayerMode = CPUPlayerMode.Disabled
-
 # text probably needs an annotation but i'm unsure which one would be most appropriate
 var text:String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor\
  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation \
@@ -27,13 +11,15 @@ var char_per_line:int = 50
 
 var player_cursor:int = 0
 var computer_cursor:int = 0
+var WPM_delay_accumulator:float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	sync_text_elements()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	update_CPU_cursor(delta)
 	update_text_interface_single_line()
 
 func sync_text_elements() -> void:
@@ -85,7 +71,14 @@ func update_text_interface_single_line() -> void:
 		$TextInterface/TextDisplay.text = line_text
 		$TextInterface/PlayerText.text = line_text.substr(0,local_player_cursor)
 
-# TODO remove debug timer
-func _on_debug_timer_timeout() -> void:
-	computer_cursor += 1
-	
+func update_CPU_cursor(delta):
+	match GlobalGameSettings.cpu_cursor_mode:
+		GlobalGameSettings.CPUPlayerMode.WPM:
+			WPM_delay_accumulator += delta
+			if WPM_delay_accumulator > GlobalGameSettings._char_delay:
+				WPM_delay_accumulator -= GlobalGameSettings._char_delay
+				computer_cursor += 1
+		GlobalGameSettings.CPUPlayerMode.Disabled:
+			pass
+		GlobalGameSettings.CPUPlayerMode.SongSync:
+			pass # TODO make me work
