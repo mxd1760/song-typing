@@ -1,21 +1,5 @@
 extends Control
 
-enum LineMode{
-	SingleLine,
-	N_Line,
-	H_Scrolling,
-	V_Scrolling_N_Line,
-	V_Scrolling_unlimited,
-}
-enum CPUPlayerMode{
-	WPM,
-	SongSync,
-	Disabled,
-}
-
-@export var line_mode:LineMode = LineMode.SingleLine
-@export var cpu_player_mode:CPUPlayerMode = CPUPlayerMode.Disabled
-
 # text probably needs an annotation but i'm unsure which one would be most appropriate
 var text:String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor\
  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation \
@@ -27,19 +11,32 @@ var char_per_line:int = 50
 
 var player_cursor:int = 0
 var computer_cursor:int = 0
+var WPM_delay_accumulator:float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	sync_text_elements()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	update_text_interface()
+func _process(delta: float) -> void:
+	update_CPU_cursor(delta)
+	update_text_interface_single_line()
 
 func sync_text_elements() -> void:
 	pass #TODO format of all text elements needs to be identical or else display will not function properly.
 
-func update_text_interface() -> void:
+func _input(event):
+	if event is InputEventKey and event.is_pressed:
+		var key = event.unicode
+		if not key:
+			return
+		# TODO remove this debug print
+		print("DEBUG: KeyPressed: ",String.chr(key)) 
+		if player_cursor<text.length() and key == text.unicode_at(player_cursor):
+			player_cursor += 1
+		
+
+func update_text_interface_single_line() -> void:
 	#guard cases
 	if player_cursor>text.length() or computer_cursor>text.length():
 		return
@@ -73,13 +70,15 @@ func update_text_interface() -> void:
 	else:
 		$TextInterface/TextDisplay.text = line_text
 		$TextInterface/PlayerText.text = line_text.substr(0,local_player_cursor)
-	
-	
 
-
-var enemy_update = false
-func _on_debug_timer_timeout() -> void:
-	player_cursor += 1
-	if enemy_update:
-		computer_cursor += 1
-	enemy_update = not enemy_update
+func update_CPU_cursor(delta):
+	match GlobalGameSettings.cpu_cursor_mode:
+		GlobalGameSettings.CPUPlayerMode.WPM:
+			WPM_delay_accumulator += delta
+			if WPM_delay_accumulator > GlobalGameSettings._char_delay:
+				WPM_delay_accumulator -= GlobalGameSettings._char_delay
+				computer_cursor += 1
+		GlobalGameSettings.CPUPlayerMode.Disabled:
+			pass
+		GlobalGameSettings.CPUPlayerMode.SongSync:
+			pass # TODO make me work
