@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cqxssfad00sgm"
+path="res://.godot/imported/yt1s.com - Arthur Crudup  Thats All Right Official Audio.mp3-941505aeb6bfd4530ef0d6a881d77205.mp3str"
+
+[deps]
+
+source_file="res://Assets/Song mp3s/yt1s.com - Arthur Crudup  Thats All Right Official Audio.mp3"
+dest_files=["res://.godot/imported/yt1s.com - Arthur Crudup  Thats All Right Official Audio.mp3-941505aeb6bfd4530ef0d6a881d77205.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
