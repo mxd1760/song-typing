@@ -1,0 +1,136 @@
+[gd_scene load_steps=2 format=3 uid="uid://kr1a6vgf2k0b"]
+
+[ext_resource type="Script" path="res://Scenes/OptionsMenu/options_menu.gd" id="1_u8i6a"]
+
+[node name="options menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u8i6a")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WPM Option" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/WPM Option"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Target WPM"
+horizontal_alignment = 2
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/WPM Option"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CPU Mode option" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/CPU Mode option"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CPU Mode"
+horizontal_alignment = 2
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/CPU Mode option"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 3
+popup/item_0/text = "WPM"
+popup/item_1/text = "SongSync"
+popup/item_1/id = 1
+popup/item_2/text = "Disabled"
+popup/item_2/id = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Fullscreen Option" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/Fullscreen Option"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fullscreen"
+horizontal_alignment = 2
+
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer/HBoxContainer/VBoxContainer2/Fullscreen Option"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VolumeControlsNote" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "The volume controls don’t do anything yet."
+
+[node name="MasterVolume" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/MasterVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Master Volume"
+horizontal_alignment = 2
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/VBoxContainer2/MasterVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 50.0
+
+[node name="MusicVolume" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/MusicVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Music Volume"
+horizontal_alignment = 2
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/VBoxContainer2/MusicVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 50.0
+
+[node name="SFXVolume" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/SFXVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SFX Volume"
+horizontal_alignment = 2
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/VBoxContainer2/SFXVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 50.0
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Back"
+
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/VBoxContainer/WPM Option/SpinBox" to="." method="_on_WPM_changed"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/VBoxContainer/CPU Mode option/OptionButton" to="." method="_on_CPU_mode_selected"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/VBoxContainer2/Fullscreen Option/CheckButton" to="." method="_on_fullscreen_toggled"]
+[connection signal="drag_ended" from="VBoxContainer/HBoxContainer/VBoxContainer2/MasterVolume/HSlider" to="." method="_on_master_volume_drag_ended"]
+[connection signal="drag_ended" from="VBoxContainer/HBoxContainer/VBoxContainer2/MusicVolume/HSlider" to="." method="_on_music_volume_drag_ended"]
+[connection signal="drag_ended" from="VBoxContainer/HBoxContainer/VBoxContainer2/SFXVolume/HSlider" to="." method="_on_SFX_volume_drag_ended"]
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

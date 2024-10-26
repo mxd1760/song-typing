@@ -14,8 +14,7 @@ func _process(delta: float) -> void:
 
 
 func _on_options_button_pressed() -> void:
-	#TODO go to options screen scene
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://Scenes/OptionsMenu/options_menu.tscn")
 
 
 func _on_play_button_pressed() -> void:

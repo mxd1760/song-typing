@@ -14,6 +14,8 @@ enum CPUPlayerMode{
 	Disabled,
 }
 
+
+
 var line_mode:LineMode = LineMode.SingleLine
 var cpu_cursor_mode:CPUPlayerMode = CPUPlayerMode.WPM
 
@@ -22,3 +24,7 @@ var CPU_target_WPM:float = 60:
 		_char_delay = 60/(value*5)
 		CPU_target_WPM = value
 var _char_delay:float = 60/(CPU_target_WPM*5)
+
+var master_volume:int = 50
+var music_volume:int = 50
+var sfx_volume:int = 50
