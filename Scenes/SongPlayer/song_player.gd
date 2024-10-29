@@ -1,11 +1,8 @@
 extends Control
 
 # text probably needs an annotation but i'm unsure which one would be most appropriate
-var text:String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor\
- incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation \
-ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in \
-voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non \
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+var text_data 
+var text
 var char_per_line:int = 50
 
 
@@ -15,6 +12,8 @@ var WPM_delay_accumulator:float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	text_data = Utility.lyrics_from_lrc_file("res://Songs/EverybodyLovesMyBaby/everybody_loves_my_baby.lrc")
+	text = Utility.just_text_from_data(text_data)
 	sync_text_elements()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,6 +26,10 @@ func sync_text_elements() -> void:
 
 func _input(event):
 	if event is InputEventKey and event.is_pressed:
+		# Enter doesn't work with the other method. also having more than one correct input for return characters might make the gameplay flow better.
+		if event.is_action_pressed("ui_accept"):
+			if player_cursor<text.length() and "\n".unicode_at(0) == text.unicode_at(player_cursor):
+				player_cursor += 1
 		var key = event.unicode
 		if not key:
 			return
