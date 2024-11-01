@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://vlh1cc30yqu4"]
+
+[node name="TextBoxForLegalNotices" type="TextEdit"]
+size_flags_vertical = 3
+editable = false
+minimap_draw = true
+metadata/_tab_index = 0
