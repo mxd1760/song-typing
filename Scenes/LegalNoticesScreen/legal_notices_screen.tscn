@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkqfsd0ddbn6e"]
+
+[ext_resource type="Script" path="res://Scenes/LegalNoticesScreen/legal_notices_screen.gd" id="1_ov5hf"]
+[ext_resource type="PackedScene" uid="uid://vlh1cc30yqu4" path="res://Scenes/LegalNoticesScreen/text_box_for_legal_notices.tscn" id="2_ghfsp"]
+
+[node name="LegalNoticesScreen" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+script = ExtResource("1_ov5hf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Legal Notices"
+horizontal_alignment = 1
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="README" type="RichTextLabel" parent="VBoxContainer/TabContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Thank you for playing {game_name}! Please take a look at the above tabs for legal notices about {game_name} and its dependencies. You can get the source code for {game_name} here: <[url]https://github.com/mxd1760/song-typing[/url]>.
+
+{game_name} uses Godot Engine version {godot_version}. If you want the source code for that version of the Godot Engine, then please visit this page: <[url]https://docs.godotengine.org/en/stable/contributing/development/compiling/getting_source.html[/url]>.
+
+The Godot Engine source code contains a file named [code]ca-certificates.crt[/code]. If you want the source code for [code]ca-certificates.crt[/code], then please take a look at the [code]thirdparty/README.md[/code] file that’s inside Godot’s source code, and then take a look at the table that’s on this page: <[url]https://github.com/Jayman2000/ca-bundle-pr/tree/corresponding-source-for-old-commits#certdatatxt[/url]>."
+metadata/_tab_index = 0
+
+[node name="Song Typing license" parent="VBoxContainer/TabContainer" instance=ExtResource("2_ghfsp")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Godot license" parent="VBoxContainer/TabContainer" instance=ExtResource("2_ghfsp")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Godot third-party component list" parent="VBoxContainer/TabContainer" instance=ExtResource("2_ghfsp")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="Godot third-party component licenses" type="HBoxContainer" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer/TabContainer/Godot third-party component licenses"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.13
+
+[node name="TextBoxForLegalNotices" parent="VBoxContainer/TabContainer/Godot third-party component licenses" instance=ExtResource("2_ghfsp")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="meta_clicked" from="VBoxContainer/TabContainer/README" to="." method="_on_readme_meta_clicked"]
+[connection signal="item_selected" from="VBoxContainer/TabContainer/Godot third-party component licenses/ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
