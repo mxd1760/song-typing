@@ -33,9 +33,7 @@ layout_mode = 2
 bbcode_enabled = true
 text = "Thank you for playing {game_name}! Please take a look at the above tabs for legal notices about {game_name} and its dependencies. You can get the source code for {game_name} here: <[url]https://github.com/mxd1760/song-typing[/url]>.
 
-{game_name} uses Godot Engine version {godot_version}. If you want the source code for that version of the Godot Engine, then please visit this page: <[url]https://docs.godotengine.org/en/stable/contributing/development/compiling/getting_source.html[/url]>.
-
-The Godot Engine source code contains a file named [code]ca-certificates.crt[/code]. If you want the source code for [code]ca-certificates.crt[/code], then please take a look at the [code]thirdparty/README.md[/code] file that’s inside Godot’s source code, and then take a look at the table that’s on this page: <[url]https://github.com/Jayman2000/ca-bundle-pr/tree/corresponding-source-for-old-commits#certdatatxt[/url]>."
+{game_name} uses Godot Engine version {godot_version}. If you want the source code for that version of the Godot Engine, then please visit this page: <[url]https://docs.godotengine.org/en/stable/contributing/development/compiling/getting_source.html[/url]>."
 metadata/_tab_index = 0
 
 [node name="Song Typing license" parent="VBoxContainer/TabContainer" instance=ExtResource("2_ghfsp")]
