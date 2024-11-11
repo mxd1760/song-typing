@@ -61,17 +61,23 @@ func update_text_interface_single_line() -> void:
 	if computer_line == player_line:
 		$TextInterface/TextDisplay.visible_characters = -1
 		if player_cursor<computer_cursor:
+			$TextInterface/PlayerText.visible_characters = 0
 			$TextInterface/CPUText.visible_characters = computer_cursor
 			$TextInterface/SharedText.visible_characters = player_cursor
 		else:
+			$TextInterface/CPUText.visible_characters = 0
 			$TextInterface/PlayerText.visible_characters = player_cursor
 			$TextInterface/SharedText.visible_characters = computer_cursor
 	# else if enemy is ahead, background is enemy and player is shared
 	elif computer_line>player_line:
+		$TextInterface/PlayerText.visible_characters = 0
+		$TextInterface/TextDisplay.visible_characters = 0
 		$TextInterface/CPUText.visible_characters = -1
 		$TextInterface/SharedText.visible_characters = player_cursor
 	# else enemy is behind so background is default and player is player
 	else:
+		$TextInterface/SharedText.visible_characters = 0
+		$TextInterface/CPUText.visible_characters = 0
 		$TextInterface/TextDisplay.visible_characters = -1
 		$TextInterface/PlayerText.visible_characters = player_cursor
 
