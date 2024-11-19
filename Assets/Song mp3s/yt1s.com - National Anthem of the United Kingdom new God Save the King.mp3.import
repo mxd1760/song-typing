@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://tagwxj87vc6p"
+path="res://.godot/imported/yt1s.com - National Anthem of the United Kingdom new God Save the King.mp3-5a0b2a60290342ce1426ea5a2a62e76c.mp3str"
+
+[deps]
+
+source_file="res://Assets/Song mp3s/yt1s.com - National Anthem of the United Kingdom new God Save the King.mp3"
+dest_files=["res://.godot/imported/yt1s.com - National Anthem of the United Kingdom new God Save the King.mp3-5a0b2a60290342ce1426ea5a2a62e76c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
