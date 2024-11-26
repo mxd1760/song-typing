@@ -37,13 +37,14 @@ func sync_text_elements() -> void:
 
 func _input(event):
 	if event is InputEventKey and event.is_pressed:
-		if player_line>=len(text_data):
-			return #TODO what if you win
 		# Enter doesn't work with the other method. also having more than one correct input for return characters might make the gameplay flow better.
 		if event.is_action_pressed("ui_accept"):
 			if player_cursor>=text_data[player_line][1].length(): # and "\n".unicode_at(0) == text_data[player_line][1].unicode_at(player_cursor):
-				player_cursor = 0
-				player_line += 1
+				if player_line<len(text_data)-1:
+					player_cursor = 0
+					player_line += 1
+				else:
+					return #TODO what if you win
 		var key = event.unicode
 		if not key:
 			return
